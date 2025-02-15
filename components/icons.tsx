@@ -34,6 +34,7 @@ import {
   Caravan,
   BaggageClaim,
   MapPin,
+  TruckIcon,
 } from "lucide-react";
 
 export type Icon = LucideIcon;
@@ -72,6 +73,7 @@ export const Icons = {
   travel: BaggageClaim,
   mapPin: MapPin,
   users: User,
+  truckIcon: TruckIcon,
   gitHub: ({ ...props }: LucideProps) => (
     <svg
       aria-hidden="true"
