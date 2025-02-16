@@ -81,7 +81,7 @@ export function DataTableFacetedFilter<TData, TValue>({
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[12.5rem] p-0" align="start">
-        <Command>
+        {/* <Command>
           <CommandInput placeholder={title} />
           <CommandList className="max-h-full">
             <CommandEmpty>No results found.</CommandEmpty>
@@ -133,7 +133,7 @@ export function DataTableFacetedFilter<TData, TValue>({
               </>
             )}
           </CommandList>
-        </Command>
+        </Command> */}
       </PopoverContent>
     </Popover>
   );
