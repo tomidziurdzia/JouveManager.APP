@@ -1,10 +1,10 @@
-import { Vehicle } from "@/app/interfaces/vehicle.interface";
+import { SemiTrailer } from "@/app/interfaces/semi-trailer";
 import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, Truck } from "lucide-react";
 import Image from "next/image";
 
-export const columns: ColumnDef<Vehicle>[] = [
+export const columns: ColumnDef<SemiTrailer>[] = [
   {
     accessorKey: "licensePlate",
     size: 200,
