@@ -21,7 +21,7 @@ export const navItems: NavItem[] = [
   },
   {
     title: "Shipments",
-    url: "/dashboard/shipment",
+    url: "/dashboard/shipments",
     icon: "travel",
     isActive: false,
     shortcut: ["e", "e"],

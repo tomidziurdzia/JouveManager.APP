@@ -25,9 +25,9 @@ export interface UpdateVehicle {
 
 export interface Vehicle {
   id: string;
-  licensePlate?: string;
-  brand?: string;
-  model?: string;
-  imageUrl?: string;
-  type?: TypeVehicle;
+  licensePlate: string;
+  brand: string;
+  model: string;
+  imageUrl: string;
+  type: TypeVehicle;
 }
