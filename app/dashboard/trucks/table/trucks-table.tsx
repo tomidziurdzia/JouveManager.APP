@@ -83,6 +83,7 @@ export default function TrucksTable() {
       ),
     },
   ];
+
   return (
     <>
       <DataTable table={table}>
