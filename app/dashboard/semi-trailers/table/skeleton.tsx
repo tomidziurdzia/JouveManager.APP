@@ -1,7 +1,7 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { TableCell, TableRow } from "@/components/ui/table";
 
-export default function TruckSkeleton() {
+export default function SemiTrailerSkeleton() {
   return (
     <TableRow>
       <TableCell>

@@ -5,7 +5,7 @@ export interface LoginUser {
   password: string;
 }
 
-export interface User {
+export interface Session {
   id: string;
   firstName: string;
   lastName: string;
@@ -13,5 +13,13 @@ export interface User {
   userName: string;
   avatarUrl: string;
   token: string;
+  roles: Role[];
+}
+
+export interface User {
+  id: string;
+  fullName: string;
+  email: string;
+  avatarUrl: string;
   roles: Role[];
 }
