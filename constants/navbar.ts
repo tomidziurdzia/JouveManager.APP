@@ -12,7 +12,7 @@ export const navItems: NavItem[] = [
   },
   {
     title: "Travels",
-    url: "/dashboard/travel",
+    url: "/dashboard/travels",
     icon: "mapPin",
     isActive: false,
     shortcut: ["t", "t"],

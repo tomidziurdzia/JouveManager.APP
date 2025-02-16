@@ -1,6 +1,6 @@
 "use client";
 
-import { useGetVehicles } from "@/app/actions/vehicle";
+import { useGetSemiTrailers } from "@/app/actions/semi-trailer";
 import { columns } from "./columns";
 import {
   ColumnFiltersState,
@@ -34,8 +34,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ChevronDown, Settings2 } from "lucide-react";
 
-export default function TruckTable() {
-  const { data: vehicles = [], isLoading } = useGetVehicles();
+export default function SemiTrailerTable() {
+  const { data: semiTrailers = [], isLoading } = useGetSemiTrailers();
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -43,7 +43,7 @@ export default function TruckTable() {
   const [rowSelection, setRowSelection] = useState({});
 
   const table = useReactTable({
-    data: vehicles,
+    data: semiTrailers,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,

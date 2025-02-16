@@ -15,6 +15,7 @@ export interface CreateVehicle {
 }
 
 export interface UpdateVehicle {
+  id: string;
   licensePlate?: string;
   brand?: string;
   model?: string;
