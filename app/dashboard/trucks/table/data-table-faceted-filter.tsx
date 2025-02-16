@@ -8,21 +8,18 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import {
-  //Check,
-  PlusCircle,
-} from "lucide-react";
+import { Check, PlusCircle } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
-// import { cn } from "@/lib/utils";
-// import {
-//   Command,
-//   CommandEmpty,
-//   CommandGroup,
-//   CommandInput,
-//   CommandItem,
-//   CommandList,
-//   CommandSeparator,
-// } from "@/components/ui/command";
+import { cn } from "@/lib/utils";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+} from "@/components/ui/command";
 
 interface DataTableFacetedFilterProps<TData, TValue> {
   column?: Column<TData, TValue>;
@@ -84,7 +81,7 @@ export function DataTableFacetedFilter<TData, TValue>({
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[12.5rem] p-0" align="start">
-        {/* <Command>
+        <Command>
           <CommandInput placeholder={title} />
           <CommandList className="max-h-full">
             <CommandEmpty>No results found.</CommandEmpty>
@@ -136,7 +133,7 @@ export function DataTableFacetedFilter<TData, TValue>({
               </>
             )}
           </CommandList>
-        </Command> */}
+        </Command>
       </PopoverContent>
     </Popover>
   );
