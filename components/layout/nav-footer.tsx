@@ -4,7 +4,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "../ui/sidebar";
+} from "@/components/ui/sidebar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -39,15 +39,15 @@ export function NavFooter() {
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage
                     src={session?.avatarUrl || ""}
-                    alt={session?.firstName || ""}
+                    alt={session?.fullName || ""}
                   />
                   <AvatarFallback className="rounded-lg">
-                    {session?.firstName?.slice(0, 2)?.toUpperCase() || "TD"}
+                    {session?.fullName?.slice(0, 2)?.toUpperCase() || "TD"}
                   </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">
-                    {session?.firstName || ""} {session?.lastName || ""}
+                    {session?.fullName || ""}
                   </span>
                   <span className="truncate text-xs">
                     {session?.roles?.join(" · ") || ""}
@@ -67,15 +67,15 @@ export function NavFooter() {
                   <Avatar className="h-8 w-8 rounded-lg">
                     <AvatarImage
                       src={session?.avatarUrl || ""}
-                      alt={session?.firstName || ""}
+                      alt={session?.fullName || ""}
                     />
                     <AvatarFallback className="rounded-lg">
-                      {session?.firstName?.slice(0, 2)?.toUpperCase() || "TD"}
+                      {session?.fullName?.slice(0, 2)?.toUpperCase() || "TD"}
                     </AvatarFallback>
                   </Avatar>
                   <div className="grid flex-1 text-left text-sm leading-tight">
                     <span className="truncate font-semibold">
-                      {session?.firstName || ""} {session?.lastName || ""}
+                      {session?.fullName || ""}
                     </span>
                     <span className="truncate text-xs">
                       {session?.roles?.join(" · ") || ""}
