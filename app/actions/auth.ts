@@ -1,15 +1,15 @@
 "use server";
 
-import { LoginUser, User } from "@/app/interfaces/user.interface";
-import { authUrls } from "@/lib/urls/auth";
+import { LoginUser, Session } from "@/app/interfaces/user.interface";
+import { usersUrls } from "@/lib/urls/auth";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export async function login(credentials: LoginUser): Promise<User> {
+export async function login(credentials: LoginUser): Promise<Session> {
   try {
-    const response = await fetch(`${API_URL}${authUrls.signin}`, {
+    const response = await fetch(`${API_URL}${usersUrls.signin}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +44,7 @@ export async function getSession() {
     return null;
   }
 
-  const session = await fetch(`${API_URL}${authUrls.getUserToken}`, {
+  const session = await fetch(`${API_URL}${usersUrls.getUserToken}`, {
     headers: {
       Authorization: `Bearer ${token.value}`,
     },

@@ -23,7 +23,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import TruckSkeleton from "./skeleton";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -33,6 +32,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ChevronDown, Settings2 } from "lucide-react";
+import SemiTrailerSkeleton from "./skeleton";
 
 export default function SemiTrailerTable() {
   const { data: semiTrailers = [], isLoading } = useGetSemiTrailers();
@@ -124,7 +124,7 @@ export default function SemiTrailerTable() {
         </TableHeader>
         <TableBody>
           {isLoading ? (
-            <TruckSkeleton />
+            <SemiTrailerSkeleton />
           ) : table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow

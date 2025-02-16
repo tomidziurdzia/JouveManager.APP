@@ -37,7 +37,7 @@ export const navItems: NavItem[] = [
     items: [
       {
         title: "Trucks",
-        url: "/dashboard/truck",
+        url: "/dashboard/trucks",
         icon: "truck",
         shortcut: ["v", "v"],
         allowedRoles: ["Manager", "Owner"],
@@ -45,7 +45,7 @@ export const navItems: NavItem[] = [
       {
         title: "SemiTrailers",
         shortcut: ["s", "s"],
-        url: "/dashboard/semi-trailer",
+        url: "/dashboard/semi-trailers",
         icon: "semiTrailer",
         allowedRoles: ["Manager", "Owner"],
       },
