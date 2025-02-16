@@ -34,3 +34,21 @@ export interface FooterItem {
 export type MainNavItem = NavItemWithOptionalChildren;
 
 export type SidebarNavItem = NavItemWithChildren;
+
+export type StringKeyOf<TData> = Extract<keyof TData, string>;
+
+export interface SearchParams {
+  [key: string]: string | string[] | undefined;
+}
+
+export interface Option {
+  label: string;
+  value: string;
+}
+
+export interface DataTableFilterField<TData> {
+  id: StringKeyOf<TData>;
+  label: string;
+  placeholder?: string;
+  options?: Option[];
+}
