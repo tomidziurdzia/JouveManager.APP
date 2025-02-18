@@ -1,9 +1,9 @@
-import UserTable from "./table/table";
+import UsersTable from "./table/users-table";
 
 export default function UsersPage() {
   return (
     <div>
-      <UserTable />
+      <UsersTable />
     </div>
   );
 }
