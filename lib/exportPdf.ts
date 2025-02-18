@@ -1,21 +1,14 @@
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
 import { Table } from "@tanstack/react-table";
-import { Vehicle } from "@/app/interfaces/vehicle.interface";
 
-export function exportTableToPdf(
-  table: Table<Vehicle>,
-  filename: string = "Vehicles"
+export function exportTableToPdf<T>(
+  table: Table<T>,
+  filename: string = "Export",
+  columns: { header: string; dataKey: keyof T }[]
 ) {
   const doc = new jsPDF();
   const today = new Date().toISOString().split("T")[0];
-
-  const columns = [
-    { header: "License Plate", dataKey: "licensePlate" },
-    { header: "Brand", dataKey: "brand" },
-    { header: "Model", dataKey: "model" },
-    { header: "Type", dataKey: "type" },
-  ];
 
   const rows = table.getRowModel().rows.map((row) => row.original);
 

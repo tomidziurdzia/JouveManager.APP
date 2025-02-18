@@ -67,7 +67,7 @@ export const columns: ColumnDef<SemiTrailer>[] = [
       return url ? (
         <Image
           src={url}
-          alt="Imagen del vehículo"
+          alt="Imagen del semi-remolque"
           width={50}
           height={50}
           style={{ borderRadius: "4px" }}

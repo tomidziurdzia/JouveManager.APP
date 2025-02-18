@@ -1,23 +1,23 @@
-import { Vehicle } from "@/app/interfaces/vehicle.interface";
+import { SemiTrailer } from "@/app/interfaces/semi-trailer";
 import { Button } from "@/components/ui/button";
 import { exportTableToPdf } from "@/lib/exportPdf";
 import { Table } from "@tanstack/react-table";
 import { Download } from "lucide-react";
 
-interface TrucksTableToolbarActionsProps {
-  table: Table<Vehicle>;
+interface SemiTrailersTableToolbarActionsProps {
+  table: Table<SemiTrailer>;
 }
 
 export function DataTableToolbarActions({
   table,
-}: TrucksTableToolbarActionsProps) {
+}: SemiTrailersTableToolbarActionsProps) {
   return (
     <div className="flex items-center gap-2">
       <Button
         variant="outline"
         size="sm"
         onClick={() =>
-          exportTableToPdf(table, "Trucks", [
+          exportTableToPdf(table, "Semi-trailers", [
             { header: "License Plate", dataKey: "licensePlate" },
             { header: "Brand", dataKey: "brand" },
             { header: "Model", dataKey: "model" },
