@@ -1,26 +1,26 @@
+import { User } from "@/app/interfaces/user.interface";
 import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, User } from "lucide-react";
+import { ArrowUpDown, User2 } from "lucide-react";
 import Image from "next/image";
-import { User as UserInterface } from "@/app/interfaces/user.interface";
 
-export const columns: ColumnDef<UserInterface>[] = [
+export const columns: ColumnDef<User>[] = [
   {
     header: "Image",
     size: 100,
-    accessorKey: "avatarUrl",
+    accessorKey: "imageUrl",
     cell: ({ row }) => {
-      const url = row.getValue("avatarUrl") as string;
+      const url = row.getValue("imageUrl") as string;
       return url ? (
         <Image
           src={url}
-          alt="Imagen del usuario"
+          alt="Imagen del vehículo"
           width={50}
           height={50}
           style={{ borderRadius: "4px" }}
         />
       ) : (
-        <User className="w-10 h-10" />
+        <User2 className="w-10 h-10" />
       );
     },
   },
@@ -41,6 +41,21 @@ export const columns: ColumnDef<UserInterface>[] = [
     cell: ({ row }) => <div>{row.getValue("fullName")}</div>,
   },
   {
+    accessorKey: "email",
+    size: 200,
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Email
+        </Button>
+      );
+    },
+    cell: ({ row }) => <div>{row.getValue("email")}</div>,
+  },
+  {
     accessorKey: "roles",
     size: 200,
     header: ({ column }) => {
@@ -58,11 +73,5 @@ export const columns: ColumnDef<UserInterface>[] = [
       const roles = row.getValue("roles") as string[];
       return <div>{roles.join(" - ")}</div>;
     },
-  },
-  {
-    header: "Email",
-    size: 200,
-    accessorKey: "email",
-    cell: ({ row }) => <div>{row.getValue("email")}</div>,
   },
 ];
