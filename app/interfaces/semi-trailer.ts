@@ -22,9 +22,9 @@ export interface UpdateSemiTrailer {
 
 export interface SemiTrailer {
   id: string;
-  licensePlate?: string;
-  brand?: string;
-  model?: string;
-  imageUrl?: string;
-  type?: TypeSemiTrailer;
+  licensePlate: string;
+  brand: string;
+  model: string;
+  imageUrl: string;
+  type: TypeSemiTrailer;
 }

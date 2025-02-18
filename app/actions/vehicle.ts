@@ -1,6 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Cookies from "js-cookie";
-import { Vehicle } from "../interfaces/vehicle.interface";
+import {
+  CreateVehicle,
+  UpdateVehicle,
+  Vehicle,
+} from "../interfaces/vehicle.interface";
 import { vehicleUrls } from "@/lib/urls/vehicle";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -43,7 +47,7 @@ export const useGetVehicleById = (id: string) => {
 };
 
 export const createVehicle = async (
-  vehicle: Partial<Vehicle>
+  vehicle: Partial<CreateVehicle>
 ): Promise<Vehicle> => {
   const token = getAuthToken();
   const response = await fetch(`${API_URL}${vehicleUrls.createVehicle}`, {
@@ -68,7 +72,9 @@ export const useCreateVehicle = () => {
   });
 };
 
-export const updateVehicle = async (vehicle: Vehicle): Promise<Vehicle> => {
+export const updateVehicle = async (
+  vehicle: UpdateVehicle
+): Promise<Vehicle> => {
   const token = getAuthToken();
   const response = await fetch(
     `${API_URL}${vehicleUrls.updateVehicle}/${vehicle.id}`,

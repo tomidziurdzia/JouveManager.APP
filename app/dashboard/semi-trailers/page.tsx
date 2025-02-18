@@ -1,5 +1,5 @@
-import SemiTrailerTable from "./table/table";
+import SemiTrailersTable from "./table/semi-trailers-table";
 
 export default function SemiTrailerPage() {
-  return <SemiTrailerTable />;
+  return <SemiTrailersTable />;
 }
