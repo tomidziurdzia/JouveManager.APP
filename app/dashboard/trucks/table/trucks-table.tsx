@@ -50,7 +50,7 @@ export default function TrucksTable() {
     {
       id: "licensePlate",
       label: "License Plate",
-      placeholder: "Filter titles...",
+      placeholder: "Filter license plate...",
     },
     {
       id: "brand",

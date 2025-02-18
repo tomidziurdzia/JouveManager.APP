@@ -9,6 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
+import { DataTablePagination } from "./data-table-pagination";
 
 interface DataTableProps<TData> extends React.HTMLAttributes<HTMLDivElement> {
   table: TanstackTable<TData>;
@@ -94,6 +95,9 @@ export default function DataTable<TData>({
           </Button>
         </div>
       </div> */}
+      <div className="flex flex-col gap-2.5">
+        <DataTablePagination table={table} />
+      </div>
     </div>
   );
 }
