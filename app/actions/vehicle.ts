@@ -47,7 +47,7 @@ export const useGetVehicleById = (id: string) => {
 };
 
 export const createVehicle = async (
-  vehicle: Partial<CreateVehicle>
+  vehicle: CreateVehicle
 ): Promise<Vehicle> => {
   const token = getAuthToken();
   const response = await fetch(`${API_URL}${vehicleUrls.createVehicle}`, {
