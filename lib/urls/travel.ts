@@ -4,4 +4,5 @@ export const travelUrls = {
   createTravel: "/travels",
   updateTravel: "/travels/:id",
   deleteTravel: "/travels/:id",
+  getTravelsByDate: "/travels/date",
 };

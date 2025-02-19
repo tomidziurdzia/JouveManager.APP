@@ -110,3 +110,24 @@ export const useDeleteShipment = () => {
     },
   });
 };
+
+export const fetchShipmentsByDate = async (
+  date: string
+): Promise<Shipment[]> => {
+  const token = getAuthToken();
+  const response = await fetch(
+    `${API_URL}${shipmentUrls.getShipmentsByDate}/${date}`,
+    {
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    }
+  );
+  if (!response.ok) throw new Error("Error al obtener los envíos por fecha");
+  return response.json();
+};
+
+export const useGetShipmentsByDate = (date: string) => {
+  return useQuery({
+    queryKey: ["shipments", date],
+    queryFn: () => fetchShipmentsByDate(date),
+  });
+};

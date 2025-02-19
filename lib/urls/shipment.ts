@@ -4,4 +4,5 @@ export const shipmentUrls = {
   createShipment: "/shipments",
   updateShipment: "/shipments/:id",
   deleteShipment: "/shipments/:id",
+  getShipmentsByDate: "/shipments/date",
 };
