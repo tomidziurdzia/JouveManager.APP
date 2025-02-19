@@ -1,3 +1,9 @@
+import ShipmentsTable from "./table/shipments-table";
+
 export default function ShipmentsPage() {
-  return <div>Shipments</div>;
+  return (
+    <div>
+      <ShipmentsTable />
+    </div>
+  );
 }

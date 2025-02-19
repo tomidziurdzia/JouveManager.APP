@@ -1,7 +1,7 @@
 "use client";
 
-import { useGetTravels } from "@/app/actions/travel";
-import { Travel } from "@/app/interfaces/travel.interface";
+import { useGetShipments } from "@/app/actions/shipment";
+import { Shipment } from "@/app/interfaces/shipment.interface";
 import { DataTableFilterField } from "@/types";
 import {
   ColumnFiltersState,
@@ -19,8 +19,8 @@ import DataTable from "./data-table";
 import { DataTableToolbar } from "./data-table-toolbar";
 import { DataTableToolbarActions } from "./data-table-toolbar-actions";
 
-export default function TravelsTable() {
-  const { data: travels = [] } = useGetTravels();
+export default function ShipmentsTable() {
+  const { data: shipments = [] } = useGetShipments();
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -28,7 +28,7 @@ export default function TravelsTable() {
   const [rowSelection, setRowSelection] = useState({});
 
   const table = useReactTable({
-    data: travels,
+    data: shipments,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -46,68 +46,50 @@ export default function TravelsTable() {
     },
   });
 
-  const filterFields: DataTableFilterField<Travel>[] = [
+  const filterFields: DataTableFilterField<Shipment>[] = [
     {
-      id: "date",
-      label: "Date",
-      placeholder: "Filter date...",
+      id: "customerName",
+      label: "Customer Name",
+      placeholder: "Filter customer name...",
     },
     {
-      id: "date",
-      label: "Date",
+      id: "scheduledDate",
+      label: "Scheduled Date",
       options: Array.from(
-        new Set(
-          travels.map((travel) => {
-            return travel.date.split("T")[0];
-          })
-        )
-      ).map((date) => {
-        const [year, month, day] = date.split("-");
-        const formattedDate = `${day}-${month}-${year}`;
-        return {
-          label: formattedDate,
-          value: date,
-        };
-      }),
-    },
-    {
-      id: "driverName",
-      label: "Driver Name",
-      options: Array.from(
-        new Set(travels.map((travel) => travel.driverName))
-      ).map((driverName) => ({
-        label: driverName,
-        value: driverName,
+        new Set(shipments.map((shipment) => shipment.scheduledDate))
+      ).map((scheduledDate) => ({
+        label: scheduledDate,
+        value: scheduledDate,
       })),
     },
     {
-      id: "assistantName",
-      label: "Assistant Name",
+      id: "from",
+      label: "From",
       options: Array.from(
-        new Set(travels.map((travel) => travel.assistantName))
-      ).map((assistantName) => ({
-        label: assistantName,
-        value: assistantName,
+        new Set(shipments.map((shipment) => shipment.from))
+      ).map((from) => ({
+        label: from,
+        value: from,
       })),
     },
     {
-      id: "vehicleLicensePlate",
-      label: "Vehicle License Plate",
+      id: "to",
+      label: "To",
       options: Array.from(
-        new Set(travels.map((travel) => travel.vehicleLicensePlate))
-      ).map((vehicleLicensePlate) => ({
-        label: vehicleLicensePlate,
-        value: vehicleLicensePlate,
+        new Set(shipments.map((shipment) => shipment.to))
+      ).map((to) => ({
+        label: to,
+        value: to,
       })),
     },
     {
-      id: "semiTrailerLicensePlate",
-      label: "Semi Trailer License Plate",
+      id: "description",
+      label: "Description",
       options: Array.from(
-        new Set(travels.map((travel) => travel.semiTrailerLicensePlate))
-      ).map((semiTrailerLicensePlate) => ({
-        label: semiTrailerLicensePlate,
-        value: semiTrailerLicensePlate,
+        new Set(shipments.map((shipment) => shipment.description))
+      ).map((description) => ({
+        label: description,
+        value: description,
       })),
     },
   ];

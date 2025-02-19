@@ -1,11 +1,11 @@
-import { Travel } from "@/app/interfaces/travel.interface";
+import { Shipment } from "@/app/interfaces/shipment.interface";
 import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 
-export const columns: ColumnDef<Travel>[] = [
+export const columns: ColumnDef<Shipment>[] = [
   {
-    accessorKey: "date",
+    accessorKey: "scheduledDate",
     size: 150,
     header: ({ column }) => {
       return (
@@ -13,13 +13,13 @@ export const columns: ColumnDef<Travel>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Date
+          Scheduled Date
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
     cell: ({ row }) => {
-      const date = new Date(row.getValue("date"));
+      const date = new Date(row.getValue("scheduledDate"));
       const day = date.getDate().toString().padStart(2, "0");
       const month = (date.getMonth() + 1).toString().padStart(2, "0");
       const year = date.getFullYear();
@@ -27,7 +27,7 @@ export const columns: ColumnDef<Travel>[] = [
     },
   },
   {
-    accessorKey: "driverName",
+    accessorKey: "customerName",
     size: 200,
     header: ({ column }) => {
       return (
@@ -35,15 +35,15 @@ export const columns: ColumnDef<Travel>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Driver Name
+          Customer Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
-    cell: ({ row }) => <div>{row.getValue("driverName")}</div>,
+    cell: ({ row }) => <div>{row.getValue("customerName")}</div>,
   },
   {
-    accessorKey: "assistantName",
+    accessorKey: "from",
     size: 200,
     header: ({ column }) => {
       return (
@@ -51,23 +51,43 @@ export const columns: ColumnDef<Travel>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Assistant Name
+          From
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
-    cell: ({ row }) => <div>{row.getValue("assistantName")}</div>,
+    cell: ({ row }) => <div>{row.getValue("from")}</div>,
   },
   {
-    header: "Vehicle License Plate",
+    accessorKey: "to",
     size: 180,
-    accessorKey: "vehicleLicensePlate",
-    cell: ({ row }) => <div>{row.getValue("vehicleLicensePlate")}</div>,
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          To
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => <div>{row.getValue("to")}</div>,
   },
   {
-    header: "Semi Trailer License Plate",
+    accessorKey: "description",
     size: 180,
-    accessorKey: "semiTrailerLicensePlate",
-    cell: ({ row }) => <div>{row.getValue("semiTrailerLicensePlate")}</div>,
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Description
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => <div>{row.getValue("description")}</div>,
   },
 ];
