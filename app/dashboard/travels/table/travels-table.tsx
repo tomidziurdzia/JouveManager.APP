@@ -53,24 +53,6 @@ export default function TravelsTable() {
       placeholder: "Filter date...",
     },
     {
-      id: "date",
-      label: "Date",
-      options: Array.from(
-        new Set(
-          travels.map((travel) => {
-            return travel.date.split("T")[0];
-          })
-        )
-      ).map((date) => {
-        const [year, month, day] = date.split("-");
-        const formattedDate = `${day}-${month}-${year}`;
-        return {
-          label: formattedDate,
-          value: date,
-        };
-      }),
-    },
-    {
       id: "driverName",
       label: "Driver Name",
       options: Array.from(

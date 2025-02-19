@@ -108,3 +108,22 @@ export const useDeleteTravel = () => {
     },
   });
 };
+
+export const fetchTravelsByDate = async (date: string): Promise<Travel[]> => {
+  const token = getAuthToken();
+  const response = await fetch(
+    `${API_URL}${travelUrls.getTravelsByDate}/${date}`,
+    {
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    }
+  );
+  if (!response.ok) throw new Error("Error al obtener los viajes por fecha");
+  return response.json();
+};
+
+export const useGetTravelsByDate = (date: string) => {
+  return useQuery({
+    queryKey: ["travels", date],
+    queryFn: () => fetchTravelsByDate(date),
+  });
+};
