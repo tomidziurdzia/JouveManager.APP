@@ -95,12 +95,14 @@ export default function TravelsTable() {
   ];
 
   return (
-    <>
-      <DataTable table={table}>
-        <DataTableToolbar table={table} filterFields={filterFields}>
-          <DataTableToolbarActions table={table} />
-        </DataTableToolbar>
-      </DataTable>
-    </>
+    <div>
+      <div className="flex items-center justify-between">
+        <DataTable table={table}>
+          <DataTableToolbar table={table} filterFields={filterFields}>
+            <DataTableToolbarActions table={table} />
+          </DataTableToolbar>
+        </DataTable>
+      </div>
+    </div>
   );
 }
