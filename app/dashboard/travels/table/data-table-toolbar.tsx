@@ -5,6 +5,7 @@ import { Table } from "@tanstack/react-table";
 import { X } from "lucide-react";
 import React from "react";
 import { DataTableFacetedFilter } from "./data-table-faceted-filter";
+import { DatePicker } from "@/components/ui/date-picker";
 
 interface DataTableToolbarProps<TData>
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -22,8 +23,20 @@ export function DataTableToolbar<TData>({
   return (
     <div className="flex flex-wrap gap-2 items-center justify-between">
       <div className="flex flex-wrap items-center gap-2">
-        {filterFields?.map((field) =>
-          field.options ? (
+        {filterFields?.map((field) => {
+          if (field.type === "date") {
+            return (
+              <DatePicker
+                key={field.id}
+                className="h-8"
+                onDateChange={(date) =>
+                  table.getColumn(field.id)?.setFilterValue(date)
+                }
+              />
+            );
+          }
+
+          return field.options ? (
             <DataTableFacetedFilter
               key={field.id}
               column={table.getColumn(field.id)}
@@ -42,8 +55,8 @@ export function DataTableToolbar<TData>({
               }
               className="h-8 w-[150px] lg:w-[250px]"
             />
-          )
-        )}
+          );
+        })}
         {isFiltered && (
           <Button
             variant="ghost"

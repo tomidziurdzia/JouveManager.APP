@@ -2,6 +2,7 @@ import { Travel } from "@/app/interfaces/travel.interface";
 import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
+import { DateRange } from "@/types";
 
 export const columns: ColumnDef<Travel>[] = [
   {
@@ -24,6 +25,15 @@ export const columns: ColumnDef<Travel>[] = [
       const month = (date.getMonth() + 1).toString().padStart(2, "0");
       const year = date.getFullYear();
       return <div>{`${day}-${month}-${year}`}</div>;
+    },
+    filterFn: (row, id, value: Date) => {
+      if (!value) return true;
+      const rowDate = new Date(row.getValue(id));
+      return (
+        rowDate.getFullYear() === value.getFullYear() &&
+        rowDate.getMonth() === value.getMonth() &&
+        rowDate.getDate() === value.getDate()
+      );
     },
   },
   {

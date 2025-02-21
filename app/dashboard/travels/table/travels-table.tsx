@@ -51,6 +51,7 @@ export default function TravelsTable() {
       id: "date",
       label: "Date",
       placeholder: "Filter date...",
+      type: "date",
     },
     {
       id: "driverName",
