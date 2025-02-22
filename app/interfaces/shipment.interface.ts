@@ -1,3 +1,5 @@
+import { TravelShipment } from "./travel-shipment.interface";
+
 export interface CreateShipment {
   customerName: string;
   from: string;
@@ -20,5 +22,7 @@ export interface Shipment {
   from: string;
   to: string;
   description: string;
+  isAssigned: boolean;
   scheduledDate: string;
+  TravelShipments: TravelShipment[];
 }
