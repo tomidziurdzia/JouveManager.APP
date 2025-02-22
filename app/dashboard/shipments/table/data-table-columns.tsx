@@ -1,5 +1,6 @@
 import { Shipment } from "@/app/interfaces/shipment.interface";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 
@@ -89,5 +90,35 @@ export const columns: ColumnDef<Shipment>[] = [
       );
     },
     cell: ({ row }) => <div>{row.getValue("description")}</div>,
+  },
+  {
+    accessorKey: "isAssigned",
+    size: 180,
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Assigned
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const isAssigned = row.getValue("isAssigned");
+
+      return (
+        <div
+          className={cn(
+            "flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium w-16",
+            isAssigned
+              ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
+              : "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
+          )}
+        >
+          {isAssigned ? "Yes" : "No"}
+        </div>
+      );
+    },
   },
 ];
