@@ -23,6 +23,7 @@ export function DataTableToolbarActions({
             { header: "From", dataKey: "from" },
             { header: "To", dataKey: "to" },
             { header: "Description", dataKey: "description" },
+            { header: "Assigned", dataKey: "isAssigned" },
           ])
         }
         className="gap-2"

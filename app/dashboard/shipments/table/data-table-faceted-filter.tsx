@@ -32,10 +32,7 @@ export function DataTableFacetedFilter<TData, TValue>({
   title,
   options,
 }: DataTableFacetedFilterProps<TData, TValue>) {
-  const unknownValue = column?.getFilterValue();
-  const selectedValues = new Set(
-    Array.isArray(unknownValue) ? unknownValue : []
-  );
+  const selectedValue = column?.getFilterValue();
 
   return (
     <Popover>
@@ -43,36 +40,16 @@ export function DataTableFacetedFilter<TData, TValue>({
         <Button variant="outline" size="sm" className="h-8 border-dashed">
           <PlusCircle className="size-4" />
           {title}
-          {selectedValues?.size > 0 && (
+          {selectedValue !== undefined && (
             <>
               <Separator orientation="vertical" className="mx-2 h-4" />
-              <Badge
-                variant="secondary"
-                className="rounded-sm px-1 font-normal lg:hidden"
-              >
-                {selectedValues.size}
-              </Badge>
               <div className="hidden space-x-1 lg:flex">
-                {selectedValues.size > 2 ? (
-                  <Badge
-                    variant="secondary"
-                    className="rounded-sm px-1 font-normal"
-                  >
-                    {selectedValues.size} selected
-                  </Badge>
-                ) : (
-                  options
-                    .filter((option) => selectedValues.has(option.value))
-                    .map((option) => (
-                      <Badge
-                        variant="secondary"
-                        key={option.value}
-                        className="rounded-sm px-1 font-normal"
-                      >
-                        {option.label}
-                      </Badge>
-                    ))
-                )}
+                <Badge
+                  variant="secondary"
+                  className="rounded-sm px-1 font-normal"
+                >
+                  {options.find((opt) => opt.value === selectedValue)?.label}
+                </Badge>
               </div>
             </>
           )}
@@ -81,25 +58,20 @@ export function DataTableFacetedFilter<TData, TValue>({
       <PopoverContent className="w-[12.5rem] p-0" align="start">
         <Command>
           <CommandInput placeholder={title} />
-          <CommandList className="max-h-full">
+          <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
-            <CommandGroup className="max-h-[18.75rem] overflow-y-auto overflow-x-hidden">
+            <CommandGroup>
               {options.map((option) => {
-                const isSelected = selectedValues.has(option.value);
-
+                const isSelected = selectedValue === option.value;
                 return (
                   <CommandItem
-                    key={option.value}
+                    key={String(option.value)}
                     onSelect={() => {
                       if (isSelected) {
-                        selectedValues.delete(option.value);
+                        column?.setFilterValue(undefined);
                       } else {
-                        selectedValues.add(option.value);
+                        column?.setFilterValue(option.value);
                       }
-                      const filterValues = Array.from(selectedValues);
-                      column?.setFilterValue(
-                        filterValues.length ? filterValues : undefined
-                      );
                     }}
                   >
                     <div
@@ -117,7 +89,7 @@ export function DataTableFacetedFilter<TData, TValue>({
                 );
               })}
             </CommandGroup>
-            {selectedValues.size > 0 && (
+            {selectedValue !== undefined && (
               <>
                 <CommandSeparator />
                 <CommandGroup>

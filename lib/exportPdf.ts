@@ -18,7 +18,7 @@ export function exportTableToPdf<T>(
 
   const rows = table.getRowModel().rows.map((row) => {
     const formattedRow = { ...row.original } as Record<string, unknown>;
-    // Formatear fechas si la propiedad parece ser una fecha
+    // Formatear fechas y booleanos
     Object.keys(formattedRow).forEach((key) => {
       const value = formattedRow[key];
       if (value && typeof value === "string" && value.includes("T")) {
@@ -27,6 +27,8 @@ export function exportTableToPdf<T>(
         const month = (date.getMonth() + 1).toString().padStart(2, "0");
         const year = date.getFullYear();
         formattedRow[key] = `${day}-${month}-${year}`;
+      } else if (typeof value === "boolean") {
+        formattedRow[key] = value ? "Yes" : "No";
       }
     });
     return formattedRow;

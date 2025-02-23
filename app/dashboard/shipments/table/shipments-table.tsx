@@ -38,6 +38,11 @@ export default function ShipmentsTable() {
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
+    initialState: {
+      pagination: {
+        pageSize: 20,
+      },
+    },
     state: {
       sorting,
       columnFilters,
@@ -57,40 +62,25 @@ export default function ShipmentsTable() {
       label: "Scheduled Date",
       options: Array.from(
         new Set(shipments.map((shipment) => shipment.scheduledDate))
-      ).map((scheduledDate) => ({
-        label: scheduledDate,
-        value: scheduledDate,
-      })),
+      ).map((scheduledDate) => {
+        const date = new Date(scheduledDate);
+        const day = date.getDate().toString().padStart(2, "0");
+        const month = (date.getMonth() + 1).toString().padStart(2, "0");
+        const year = date.getFullYear();
+        const formattedDate = `${day}-${month}-${year}`;
+        return {
+          label: formattedDate,
+          value: scheduledDate,
+        };
+      }),
     },
     {
-      id: "from",
-      label: "From",
-      options: Array.from(
-        new Set(shipments.map((shipment) => shipment.from))
-      ).map((from) => ({
-        label: from,
-        value: from,
-      })),
-    },
-    {
-      id: "to",
-      label: "To",
-      options: Array.from(
-        new Set(shipments.map((shipment) => shipment.to))
-      ).map((to) => ({
-        label: to,
-        value: to,
-      })),
-    },
-    {
-      id: "description",
-      label: "Description",
-      options: Array.from(
-        new Set(shipments.map((shipment) => shipment.description))
-      ).map((description) => ({
-        label: description,
-        value: description,
-      })),
+      id: "isAssigned",
+      label: "Is Assigned",
+      options: [
+        { label: "Yes", value: true },
+        { label: "No", value: false },
+      ],
     },
   ];
 
