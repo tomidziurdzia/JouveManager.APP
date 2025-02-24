@@ -43,7 +43,7 @@ export interface SearchParams {
 
 export interface Option {
   label: string;
-  value: string;
+  value: string | boolean | number;
 }
 
 export interface DataTableFilterField<TData> {

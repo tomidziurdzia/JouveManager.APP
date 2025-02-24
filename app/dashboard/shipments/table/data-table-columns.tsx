@@ -104,9 +104,13 @@ export const columns: ColumnDef<Shipment>[] = [
         </Button>
       );
     },
+    enableColumnFilter: true,
+    filterFn: (row, id, value) => {
+      const rowValue = row.getValue(id);
+      return rowValue === value;
+    },
     cell: ({ row }) => {
       const isAssigned = row.getValue("isAssigned");
-
       return (
         <div
           className={cn(
