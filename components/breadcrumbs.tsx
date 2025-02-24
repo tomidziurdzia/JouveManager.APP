@@ -1,4 +1,5 @@
 "use client";
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -8,29 +9,69 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { useBreadcrumbs } from "@/hooks/use-breadcrumbs";
+import { useGetTravelShipmentById } from "@/app/actions/travel-shipments";
 import { Slash } from "lucide-react";
 import { Fragment } from "react";
+import { useParams } from "next/navigation";
+import { formatDate } from "@/lib/utils";
 
-export function Breadcrumbs() {
-  const items = useBreadcrumbs();
-  if (items.length === 0) return null;
+interface BreadcrumbsProps {
+  overridePath?: Array<{
+    title: string;
+    link: string;
+  }>;
+}
+
+export function Breadcrumbs({ overridePath }: BreadcrumbsProps) {
+  const defaultItems = useBreadcrumbs();
+  const params = useParams();
+  const id = params?.id as string | undefined;
+  const { data: travelShipment } = useGetTravelShipmentById(id || "");
+
+  const items = overridePath || defaultItems;
+
+  const displayItems = items.map((item, index) => {
+    if (
+      id &&
+      index === items.length - 1 &&
+      items[index - 1]?.title === "Travels" &&
+      travelShipment?.driverName
+    ) {
+      const date = new Date(travelShipment.date);
+      const formattedDate = formatDate(date);
+
+      const parts = [
+        formattedDate,
+        travelShipment.driverName,
+        travelShipment.assistantName,
+        travelShipment.vehicleLicensePlate,
+        travelShipment.semiTrailerLicensePlate,
+      ].filter(Boolean);
+
+      return {
+        ...item,
+        title: parts.join(" - "),
+      };
+    }
+    return item;
+  });
 
   return (
     <Breadcrumb>
       <BreadcrumbList>
-        {items.map((item, index) => (
+        {displayItems.map((item, index) => (
           <Fragment key={item.title}>
-            {index !== items.length - 1 && (
+            {index !== displayItems.length - 1 && (
               <BreadcrumbItem className="hidden md:block">
                 <BreadcrumbLink href={item.link}>{item.title}</BreadcrumbLink>
               </BreadcrumbItem>
             )}
-            {index < items.length - 1 && (
+            {index < displayItems.length - 1 && (
               <BreadcrumbSeparator className="hidden md:block">
                 <Slash />
               </BreadcrumbSeparator>
             )}
-            {index === items.length - 1 && (
+            {index === displayItems.length - 1 && (
               <BreadcrumbPage>{item.title}</BreadcrumbPage>
             )}
           </Fragment>
