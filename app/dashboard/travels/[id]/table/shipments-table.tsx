@@ -60,11 +60,13 @@ export default function ShipmentsTable({
       placeholder: "Filter customer name...",
     },
     {
-      id: "delivered",
-      label: "Delivered",
+      id: "shipmentStatus",
+      label: "Shipment Status",
       options: [
-        { label: "Yes", value: true },
-        { label: "No", value: false },
+        { label: "In Progress", value: "InProgress" },
+        { label: "Delivered", value: "Delivered" },
+        { label: "Cancelled", value: "Cancelled" },
+        { label: "Reprogrammed", value: "Reprogrammed" },
       ],
     },
   ];
