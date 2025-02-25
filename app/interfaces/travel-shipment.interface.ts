@@ -2,7 +2,7 @@ export interface TravelShipment {
   id: string;
   shipmentId: string;
   travelId: string;
-  delivered: boolean;
+  shipmentStatus: ShipmentStatus;
   deliveryDate: Date;
 }
 
@@ -27,7 +27,15 @@ export interface Shipments {
   to: string;
   description: string;
   scheduledDate: Date;
-  delivered: boolean;
+  shipmentStatus: ShipmentStatus;
   deliveryDate: Date;
   failureReason: string;
+}
+
+export enum ShipmentStatus {
+  NotStarted = "NotStarted",
+  InProgress = "InProgress",
+  Delivered = "Delivered",
+  Cancelled = "Cancelled",
+  Reprogrammed = "Reprogrammed",
 }

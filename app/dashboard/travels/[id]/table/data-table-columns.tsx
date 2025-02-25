@@ -70,7 +70,7 @@ export const columns: ColumnDef<Shipments>[] = [
     cell: ({ row }) => <div>{row.getValue("description")}</div>,
   },
   {
-    accessorKey: "delivered",
+    accessorKey: "shipmentStatus",
     size: 180,
     header: ({ column }) => {
       return (
@@ -78,7 +78,7 @@ export const columns: ColumnDef<Shipments>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Delivered
+          Travel Status
         </Button>
       );
     },
@@ -88,17 +88,28 @@ export const columns: ColumnDef<Shipments>[] = [
       return rowValue === value;
     },
     cell: ({ row }) => {
-      const isDelivered = row.getValue("delivered");
+      const shipmentStatus = row.getValue("shipmentStatus");
+
+      const statusStyles = {
+        InProgress:
+          "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
+        Delivered:
+          "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
+        Cancelled:
+          "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
+        Reprogrammed:
+          "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400",
+      };
+
       return (
         <div
           className={cn(
-            "flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium w-16",
-            isDelivered
-              ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
-              : "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
+            "flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium",
+            statusStyles[shipmentStatus as keyof typeof statusStyles] ||
+              "bg-gray-100 text-gray-700"
           )}
         >
-          {isDelivered ? "Yes" : "No"}
+          {shipmentStatus as string}
         </div>
       );
     },
