@@ -10,9 +10,10 @@ import {
 } from "@/components/ui/breadcrumb";
 import { useBreadcrumbs } from "@/hooks/use-breadcrumbs";
 import { useGetTravelShipmentById } from "@/app/actions/travel-shipments";
+import { useGetShipmentById } from "@/app/actions/shipment";
 import { Slash } from "lucide-react";
 import { Fragment } from "react";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { formatDate } from "@/lib/utils";
 
 interface BreadcrumbsProps {
@@ -25,13 +26,25 @@ interface BreadcrumbsProps {
 export function Breadcrumbs({ overridePath }: BreadcrumbsProps) {
   const defaultItems = useBreadcrumbs();
   const params = useParams();
+  const pathname = usePathname();
   const id = params?.id as string | undefined;
-  const { data: travelShipment } = useGetTravelShipmentById(id || "");
+
+  const isShipmentRoute = pathname.includes("/shipments/");
+  const isTravelRoute = pathname.includes("/travels/");
+
+  const { data: travelShipment } = useGetTravelShipmentById(
+    isTravelRoute ? id || "" : ""
+  );
+  const { data: shipment } = useGetShipmentById(
+    isShipmentRoute ? id || "" : ""
+  );
 
   const items = overridePath || defaultItems;
 
   const displayItems = items.map((item, index) => {
+    // Para rutas de viajes
     if (
+      isTravelRoute &&
       id &&
       index === items.length - 1 &&
       items[index - 1]?.title === "Travels" &&
@@ -53,6 +66,31 @@ export function Breadcrumbs({ overridePath }: BreadcrumbsProps) {
         title: parts.join(" - "),
       };
     }
+
+    // Para rutas de envíos
+    if (
+      isShipmentRoute &&
+      id &&
+      index === items.length - 1 &&
+      items[index - 1]?.title === "Shipments" &&
+      shipment?.customerName
+    ) {
+      const date = new Date(shipment.scheduledDate);
+      const formattedDate = formatDate(date);
+
+      const parts = [
+        formattedDate,
+        shipment.customerName,
+        shipment.from,
+        shipment.to,
+      ].filter(Boolean);
+
+      return {
+        ...item,
+        title: parts.join(" - "),
+      };
+    }
+
     return item;
   });
 

@@ -24,5 +24,5 @@ export interface Shipment {
   description: string;
   isAssigned: boolean;
   scheduledDate: string;
-  TravelShipments: TravelShipment[];
+  travelShipments: TravelShipment[];
 }
