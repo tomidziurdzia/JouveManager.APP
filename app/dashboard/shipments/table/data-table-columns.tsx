@@ -2,7 +2,8 @@ import { Shipment } from "@/app/interfaces/shipment.interface";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown } from "lucide-react";
+import { ArrowUpDown, Search } from "lucide-react";
+import Link from "next/link";
 
 export const columns: ColumnDef<Shipment>[] = [
   {
@@ -122,6 +123,17 @@ export const columns: ColumnDef<Shipment>[] = [
         >
           {isAssigned ? "Yes" : "No"}
         </div>
+      );
+    },
+  },
+  {
+    id: "actions",
+    size: 50,
+    cell: ({ row }) => {
+      return (
+        <Link href={`/dashboard/shipments/${row.original.id}`}>
+          <Search className="h-4 w-4 cursor-pointer hover:text-primary" />
+        </Link>
       );
     },
   },

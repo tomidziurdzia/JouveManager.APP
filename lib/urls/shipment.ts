@@ -1,6 +1,6 @@
 export const shipmentUrls = {
   getShipments: "/shipments",
-  getShipmentById: "/shipments/:id",
+  getShipmentById: "/shipments",
   createShipment: "/shipments",
   updateShipment: "/shipments/:id",
   deleteShipment: "/shipments/:id",
