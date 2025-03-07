@@ -1,11 +1,18 @@
 import { Vehicle } from "@/app/interfaces/vehicle.interface";
 import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, Edit, Truck } from "lucide-react";
+import { ArrowUpDown, Truck } from "lucide-react";
 import Image from "next/image";
 import EditVehicleModal from "@/components/edit-vehicle-modal";
+import DeleteVehicleModal from "@/components/delete-vehicle-modal";
 
-export const columns: ColumnDef<Vehicle>[] = [
+interface CreateColumnsProps {
+  onRefresh: () => Promise<void>;
+}
+
+export const createColumns = ({
+  onRefresh,
+}: CreateColumnsProps): ColumnDef<Vehicle>[] => [
   {
     accessorKey: "licensePlate",
     size: 200,
@@ -80,11 +87,13 @@ export const columns: ColumnDef<Vehicle>[] = [
   },
   {
     id: "actions",
+    header: "Acciones",
     cell: ({ row }) => {
       const vehicle = row.original;
       return (
         <div className="flex items-center gap-2">
-          <EditVehicleModal vehicle={vehicle} />
+          <EditVehicleModal vehicle={vehicle} onSuccess={onRefresh} />
+          <DeleteVehicleModal vehicle={vehicle} onSuccess={onRefresh} />
         </div>
       );
     },

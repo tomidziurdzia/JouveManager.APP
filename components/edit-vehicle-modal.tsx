@@ -12,7 +12,7 @@ import { Edit } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { TypeVehicle, Vehicle } from "@/app/interfaces/vehicle.interface";
+import { TypeVehicle, UpdateVehicle } from "@/app/interfaces/vehicle.interface";
 import { Input } from "./ui/input";
 import {
   Select,
@@ -23,7 +23,7 @@ import {
 } from "./ui/select";
 import { updateVehicle } from "@/app/actions/vehicle";
 
-const vehicleSchema: z.ZodSchema<Vehicle> = z.object({
+const vehicleSchema: z.ZodSchema<UpdateVehicle> = z.object({
   licensePlate: z
     .string()
     .min(6, "La patente debe tener al menos 6 caracteres")
@@ -34,7 +34,7 @@ const vehicleSchema: z.ZodSchema<Vehicle> = z.object({
 });
 
 interface EditVehicleModalProps {
-  vehicle: Vehicle;
+  vehicle: UpdateVehicle;
   onSuccess?: () => Promise<void>;
 }
 
@@ -57,7 +57,8 @@ export default function EditVehicleModal({
 
   const onSubmit = async (values: z.infer<typeof vehicleSchema>) => {
     try {
-      await updateVehicle(vehicle.id, values);
+      const updatedVehicle = { ...values, id: vehicle.id };
+      await updateVehicle(updatedVehicle);
       form.reset();
       setOpen(false);
       await onSuccess?.();
