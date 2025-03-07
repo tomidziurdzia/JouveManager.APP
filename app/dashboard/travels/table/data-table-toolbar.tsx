@@ -5,7 +5,6 @@ import { Table } from "@tanstack/react-table";
 import { X } from "lucide-react";
 import React from "react";
 import { DataTableFacetedFilter } from "./data-table-faceted-filter";
-import CreateVehicleModal from "@/components/create-vehicle-modal";
 
 interface DataTableToolbarProps<TData>
   extends React.HTMLAttributes<HTMLDivElement> {
