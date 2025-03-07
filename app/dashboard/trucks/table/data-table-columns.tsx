@@ -1,8 +1,9 @@
 import { Vehicle } from "@/app/interfaces/vehicle.interface";
 import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, Truck } from "lucide-react";
+import { ArrowUpDown, Edit, Truck } from "lucide-react";
 import Image from "next/image";
+import EditVehicleModal from "@/components/edit-vehicle-modal";
 
 export const columns: ColumnDef<Vehicle>[] = [
   {
@@ -74,6 +75,17 @@ export const columns: ColumnDef<Vehicle>[] = [
         />
       ) : (
         <Truck className="w-10 h-10" />
+      );
+    },
+  },
+  {
+    id: "actions",
+    cell: ({ row }) => {
+      const vehicle = row.original;
+      return (
+        <div className="flex items-center gap-2">
+          <EditVehicleModal vehicle={vehicle} />
+        </div>
       );
     },
   },

@@ -18,14 +18,19 @@ import React, { useState } from "react";
 import DataTable from "./data-table";
 import { DataTableToolbar } from "./data-table-toolbar";
 import { DataTableToolbarActions } from "./data-table-toolbar-actions";
+import CreateVehicleModal from "@/components/create-vehicle-modal";
 
 export default function TrucksTable() {
-  const { data: vehicles = [] } = useGetVehicles();
+  const { data: vehicles = [], refetch } = useGetVehicles();
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
+
+  const handleRefresh = async () => {
+    await refetch();
+  };
 
   const table = useReactTable({
     data: vehicles,
@@ -93,6 +98,7 @@ export default function TrucksTable() {
     <>
       <DataTable table={table}>
         <DataTableToolbar table={table} filterFields={filterFields}>
+          <CreateVehicleModal onSuccess={handleRefresh} />
           <DataTableToolbarActions table={table} />
         </DataTableToolbar>
       </DataTable>
