@@ -2,6 +2,7 @@ import { Shipments } from "@/app/interfaces/travel-shipment.interface";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ColumnDef } from "@tanstack/react-table";
+import { format } from "date-fns";
 import { ArrowUpDown } from "lucide-react";
 
 export const columns: ColumnDef<Shipments>[] = [
@@ -128,7 +129,9 @@ export const columns: ColumnDef<Shipments>[] = [
         </Button>
       );
     },
-    cell: ({ row }) => <div>{row.getValue("deliveryDate")}</div>,
+    cell: ({ row }) => (
+      <div>{format(new Date(row.getValue("deliveryDate")), "dd/MM/yyyy")}</div>
+    ),
   },
   {
     accessorKey: "failureReason",

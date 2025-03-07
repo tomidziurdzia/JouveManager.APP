@@ -1,16 +1,38 @@
 "use client";
 
 import { useGetShipmentHistory } from "@/app/actions/shipment-history";
-import { MessageSquare, User } from "lucide-react";
+import { ArrowRight, MessageSquare, User } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { format } from "date-fns";
 import { useParams } from "next/navigation";
 import {
   ShipmentStatus,
   shipmentStatusLabel,
+  shipmentStatusColors,
+  shipmentStatusBorderColors,
 } from "@/app/interfaces/shipment-status";
 
 export default function ShipmentHistoryPage() {
+  function getStatusColor(status: string): string {
+    return (
+      shipmentStatusBorderColors[status as ShipmentStatus] ||
+      shipmentStatusBorderColors[ShipmentStatus.NotStarted]
+    );
+  }
+
+  function StatusBadge({ status }: { status: string }) {
+    return (
+      <span
+        className={`text-xs px-2 py-0.5 rounded-full ${
+          shipmentStatusColors[status as ShipmentStatus] ||
+          shipmentStatusColors[ShipmentStatus.NotStarted]
+        }`}
+      >
+        {shipmentStatusLabel[status as ShipmentStatus] || status}
+      </span>
+    );
+  }
+
   const { id } = useParams();
   const { data: shipmentHistory = [] } = useGetShipmentHistory(id as string);
   return (
@@ -22,20 +44,9 @@ export default function ShipmentHistoryPage() {
               {/* Header Row */}
               <div className="flex items-center justify-between bg-muted/30 p-3 rounded-lg">
                 <div className="flex items-center gap-4">
+                  <StatusBadge status={change.oldStatus} />
+                  <ArrowRight className="h-4 w-4 text-muted-foreground" />
                   <StatusBadge status={change.newStatus} />
-                  <div className="text-sm font-medium">
-                    {
-                      shipmentStatusLabel[
-                        change.oldStatus as unknown as ShipmentStatus
-                      ]
-                    }{" "}
-                    →{" "}
-                    {
-                      shipmentStatusLabel[
-                        change.newStatus as unknown as ShipmentStatus
-                      ]
-                    }
-                  </div>
                 </div>
                 <div className="text-sm text-muted-foreground">
                   {format(new Date(change.createdAt), "dd/MM/yyyy HH:mm")}
@@ -55,7 +66,7 @@ export default function ShipmentHistoryPage() {
                     </div>
                     <div className="flex items-center gap-2 text-sm">
                       <User className="h-4 w-4 text-muted-foreground" />
-                      <span>{change.createdBy}</span>
+                      <span>{change.lastModifiedBy}</span>
                     </div>
                   </div>
                 </CardContent>
@@ -69,40 +80,5 @@ export default function ShipmentHistoryPage() {
         )}
       </div>
     </CardContent>
-  );
-}
-
-function getStatusColor(status: string): string {
-  switch (status as ShipmentStatus) {
-    case ShipmentStatus.NotStarted:
-      return "#9CA3AF"; // gray-400
-    case ShipmentStatus.InProgress:
-      return "#60A5FA"; // blue-400
-    case ShipmentStatus.Completed:
-      return "#34D399"; // green-400
-    case ShipmentStatus.Cancelled:
-      return "#F87171"; // red-400
-    default:
-      return "#9CA3AF"; // gray-400
-  }
-}
-
-function StatusBadge({ status }: { status: string }) {
-  const statusColors: Record<ShipmentStatus, string> = {
-    [ShipmentStatus.NotStarted]: "bg-gray-100 text-gray-800",
-    [ShipmentStatus.InProgress]: "bg-blue-100 text-blue-800",
-    [ShipmentStatus.Completed]: "bg-green-100 text-green-800",
-    [ShipmentStatus.Cancelled]: "bg-red-100 text-red-800",
-  };
-
-  return (
-    <span
-      className={`text-xs px-2 py-0.5 rounded-full ${
-        statusColors[status as ShipmentStatus] ||
-        statusColors[ShipmentStatus.NotStarted]
-      }`}
-    >
-      {shipmentStatusLabel[status as ShipmentStatus] || status}
-    </span>
   );
 }
