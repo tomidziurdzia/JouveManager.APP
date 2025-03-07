@@ -50,6 +50,8 @@ export const createVehicle = async (
   vehicle: CreateVehicle
 ): Promise<Vehicle> => {
   const token = getAuthToken();
+
+  console.log(vehicle);
   const response = await fetch(`${API_URL}${vehicleUrls.createVehicle}`, {
     method: "POST",
     headers: {
@@ -72,9 +74,7 @@ export const useCreateVehicle = () => {
   });
 };
 
-export const updateVehicle = async (
-  vehicle: UpdateVehicle
-): Promise<Vehicle> => {
+export const updateVehicle = async (vehicle: UpdateVehicle): Promise<void> => {
   const token = getAuthToken();
   const response = await fetch(
     `${API_URL}${vehicleUrls.updateVehicle}/${vehicle.id}`,
@@ -88,7 +88,6 @@ export const updateVehicle = async (
     }
   );
   if (!response.ok) throw new Error("Error al actualizar el vehículo");
-  return response.json();
 };
 
 export const useUpdateVehicle = () => {
@@ -101,16 +100,13 @@ export const useUpdateVehicle = () => {
   });
 };
 
-export const deleteVehicle = async (
-  id: string
-): Promise<{ success: boolean; id: string }> => {
+export const deleteVehicle = async (id: string): Promise<void> => {
   const token = getAuthToken();
   const response = await fetch(`${API_URL}${vehicleUrls.deleteVehicle}/${id}`, {
     method: "DELETE",
     headers: token ? { Authorization: `Bearer ${token}` } : {},
   });
   if (!response.ok) throw new Error("Error al eliminar el vehículo");
-  return response.json();
 };
 
 export const useDeleteVehicle = () => {

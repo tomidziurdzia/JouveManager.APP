@@ -3,7 +3,7 @@ export enum TypeVehicle {
   Truck = "Truck",
   Van = "Van",
   Pickup = "Pickup",
-  TractorUnit = "TractorUnit",
+  TractorUnit = "Tractor",
 }
 
 export interface CreateVehicle {
@@ -15,7 +15,7 @@ export interface CreateVehicle {
 }
 
 export interface UpdateVehicle {
-  id: string;
+  id?: string;
   licensePlate?: string;
   brand?: string;
   model?: string;
@@ -24,10 +24,10 @@ export interface UpdateVehicle {
 }
 
 export interface Vehicle {
-  id: string;
+  id?: string;
   licensePlate: string;
   brand: string;
   model: string;
-  imageUrl: string;
+  imageUrl?: string;
   type: TypeVehicle;
 }
