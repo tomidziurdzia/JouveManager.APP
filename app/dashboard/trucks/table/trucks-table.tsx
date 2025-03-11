@@ -18,7 +18,7 @@ import React, { useState } from "react";
 import DataTable from "./data-table";
 import { DataTableToolbar } from "./data-table-toolbar";
 import { DataTableToolbarActions } from "./data-table-toolbar-actions";
-import CreateVehicleModal from "@/components/create-vehicle-modal";
+import CreateVehicleModal from "@/components/trucks/create-vehicle-modal";
 
 export default function TrucksTable() {
   const { data: vehicles = [], refetch } = useGetVehicles();

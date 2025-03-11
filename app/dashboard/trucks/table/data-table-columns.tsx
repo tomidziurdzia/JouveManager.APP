@@ -3,8 +3,8 @@ import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, Truck } from "lucide-react";
 import Image from "next/image";
-import EditVehicleModal from "@/components/edit-vehicle-modal";
-import DeleteVehicleModal from "@/components/delete-vehicle-modal";
+import EditVehicleModal from "@/components/trucks/edit-vehicle-modal";
+import DeleteVehicleModal from "@/components/trucks/delete-vehicle-modal";
 
 interface CreateColumnsProps {
   onRefresh: () => Promise<void>;

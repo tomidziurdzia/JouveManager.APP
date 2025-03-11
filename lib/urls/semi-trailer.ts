@@ -1,7 +1,7 @@
 export const semiTrailerUrls = {
   getSemiTrailers: "/semi-trailers",
-  getSemiTrailerById: "/semi-trailers/:id",
+  getSemiTrailerById: "/semi-trailers",
   createSemiTrailer: "/semi-trailers",
-  updateSemiTrailer: "/semi-trailers/:id",
-  deleteSemiTrailer: "/semi-trailers/:id",
+  updateSemiTrailer: "/semi-trailers",
+  deleteSemiTrailer: "/semi-trailers",
 };

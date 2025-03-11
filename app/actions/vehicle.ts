@@ -50,8 +50,6 @@ export const createVehicle = async (
   vehicle: CreateVehicle
 ): Promise<Vehicle> => {
   const token = getAuthToken();
-
-  console.log(vehicle);
   const response = await fetch(`${API_URL}${vehicleUrls.createVehicle}`, {
     method: "POST",
     headers: {
