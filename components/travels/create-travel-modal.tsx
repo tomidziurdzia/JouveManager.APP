@@ -48,14 +48,14 @@ const createTravelSchema = (vehicles: Vehicle[]) => {
       driverId: z.string().min(1, "El conductor es requerido"),
       assistantId: z.string().optional(),
       vehicleId: z.string().min(1, "El vehículo es requerido"),
-      semiTrailerLicensePlate: z.string().optional(),
+      semiTrailerId: z.string().optional(),
     })
     .refine(
       (data) => {
         if (!data.vehicleId) return true;
         const selectedVehicle = vehicles.find((v) => v.id === data.vehicleId);
         if (selectedVehicle?.type === TypeVehicle.TractorUnit) {
-          return !!data.semiTrailerLicensePlate;
+          return !!data.semiTrailerId;
         }
 
         return true;
@@ -63,7 +63,7 @@ const createTravelSchema = (vehicles: Vehicle[]) => {
       {
         message:
           "El semi-trailer es requerido para vehículos tipo Tractor Unit",
-        path: ["semiTrailerLicensePlate"],
+        path: ["semiTrailerId"],
       }
     );
 };
@@ -95,7 +95,7 @@ export default function CreateTravelModal({
       driverId: "",
       assistantId: "",
       vehicleId: "",
-      semiTrailerLicensePlate: "",
+      semiTrailerId: "",
     },
     mode: "onChange",
   });
@@ -239,7 +239,7 @@ export default function CreateTravelModal({
                         field.onChange(value);
                         const vehicle = vehicles.find((v) => v.id === value);
                         if (vehicle?.type !== TypeVehicle.TractorUnit) {
-                          form.setValue("semiTrailerLicensePlate", "");
+                          form.setValue("semiTrailerId", "");
                         }
                       }}
                       defaultValue={field.value}
@@ -263,7 +263,7 @@ export default function CreateTravelModal({
             {showSemiTrailerField && (
               <FormField
                 control={form.control}
-                name="semiTrailerLicensePlate"
+                name="semiTrailerId"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
