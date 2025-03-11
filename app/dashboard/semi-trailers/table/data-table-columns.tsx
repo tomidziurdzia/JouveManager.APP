@@ -1,10 +1,18 @@
 import { SemiTrailer } from "@/app/interfaces/semi-trailer";
+import DeleteSemiTrailerModal from "@/components/semi-trailers/delete-semi-trailers-modal";
+import EditSemiTrailerModal from "@/components/semi-trailers/edit-semi-trailers-modal";
 import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, Truck } from "lucide-react";
 import Image from "next/image";
 
-export const columns: ColumnDef<SemiTrailer>[] = [
+interface CreateColumnsProps {
+  onRefresh: () => Promise<void>;
+}
+
+export const createColumns = ({
+  onRefresh,
+}: CreateColumnsProps): ColumnDef<SemiTrailer>[] => [
   {
     accessorKey: "licensePlate",
     size: 200,
@@ -74,6 +82,25 @@ export const columns: ColumnDef<SemiTrailer>[] = [
         />
       ) : (
         <Truck className="w-10 h-10" />
+      );
+    },
+  },
+  {
+    id: "actions",
+    header: "Acciones",
+    cell: ({ row }) => {
+      const semiTrailer = row.original;
+      return (
+        <div className="flex items-center gap-2">
+          <EditSemiTrailerModal
+            semiTrailer={semiTrailer}
+            onSuccess={onRefresh}
+          />
+          <DeleteSemiTrailerModal
+            semiTrailer={semiTrailer}
+            onSuccess={onRefresh}
+          />
+        </div>
       );
     },
   },

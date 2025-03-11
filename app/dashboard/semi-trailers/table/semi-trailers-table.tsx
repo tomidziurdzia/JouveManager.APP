@@ -13,23 +13,28 @@ import {
   useReactTable,
   VisibilityState,
 } from "@tanstack/react-table";
-import { columns } from "./data-table-columns";
 import React, { useState } from "react";
 import DataTable from "./data-table";
 import { DataTableToolbar } from "./data-table-toolbar";
 import { DataTableToolbarActions } from "./data-table-toolbar-actions";
+import CreateSemiTrailerModal from "@/components/semi-trailers/create-semi-trailers-modal";
+import { createColumns } from "./data-table-columns";
 
 export default function SemiTrailersTable() {
-  const { data: semiTrailers = [] } = useGetSemiTrailers();
+  const { data: semiTrailers = [], refetch } = useGetSemiTrailers();
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
 
+  const handleRefresh = async () => {
+    await refetch();
+  };
+
   const table = useReactTable({
     data: semiTrailers,
-    columns,
+    columns: createColumns({ onRefresh: handleRefresh }),
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
@@ -93,6 +98,7 @@ export default function SemiTrailersTable() {
     <>
       <DataTable table={table}>
         <DataTableToolbar table={table} filterFields={filterFields}>
+          <CreateSemiTrailerModal onSuccess={handleRefresh} />
           <DataTableToolbarActions table={table} />
         </DataTableToolbar>
       </DataTable>

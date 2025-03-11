@@ -56,7 +56,10 @@ export const createSemiTrailer = async (
     `${API_URL}${semiTrailerUrls.createSemiTrailer}`,
     {
       method: "POST",
-      headers: token ? { Authorization: `Bearer ${token}` } : {},
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
       body: JSON.stringify(semiTrailer),
     }
   );
@@ -77,18 +80,21 @@ export const useCreateSemiTrailer = () => {
 
 export const updateSemiTrailer = async (
   semiTrailer: UpdateSemiTrailer
-): Promise<SemiTrailer> => {
+): Promise<void> => {
+  console.log(semiTrailer);
   const token = getAuthToken();
   const response = await fetch(
     `${API_URL}${semiTrailerUrls.updateSemiTrailer}/${semiTrailer.id}`,
     {
       method: "PUT",
-      headers: token ? { Authorization: `Bearer ${token}` } : {},
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
       body: JSON.stringify(semiTrailer),
     }
   );
   if (!response.ok) throw new Error("Error al actualizar el semi-trailer");
-  return response.json();
 };
 
 export const useUpdateSemiTrailer = () => {
@@ -101,9 +107,7 @@ export const useUpdateSemiTrailer = () => {
   });
 };
 
-export const deleteSemiTrailer = async (
-  id: string
-): Promise<{ success: boolean; id: string }> => {
+export const deleteSemiTrailer = async (id: string): Promise<void> => {
   const token = getAuthToken();
   const response = await fetch(
     `${API_URL}${semiTrailerUrls.deleteSemiTrailer}/${id}`,
@@ -113,7 +117,6 @@ export const deleteSemiTrailer = async (
     }
   );
   if (!response.ok) throw new Error("Error al eliminar el semi-trailer");
-  return response.json();
 };
 
 export const useDeleteSemiTrailer = () => {

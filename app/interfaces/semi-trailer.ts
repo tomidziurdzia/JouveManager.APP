@@ -12,7 +12,7 @@ export interface CreateSemiTrailer {
 }
 
 export interface UpdateSemiTrailer {
-  id: string;
+  id?: string;
   licensePlate?: string;
   brand?: string;
   model?: string;
@@ -21,7 +21,7 @@ export interface UpdateSemiTrailer {
 }
 
 export interface SemiTrailer {
-  id: string;
+  id?: string;
   licensePlate: string;
   brand: string;
   model: string;
