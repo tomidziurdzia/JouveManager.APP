@@ -78,7 +78,7 @@ export default function CreateVehicleModal({
       model: "",
       type: undefined as unknown as TypeVehicle,
     },
-    mode: "onChange", // Validate on change for better user feedback
+    mode: "onChange",
   });
 
   const onSubmit = async (values: VehicleFormValues) => {
@@ -104,8 +104,8 @@ export default function CreateVehicleModal({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size="sm" className="flex items-center gap-2">
-          <Plus className="h-4 w-4" />
+        <Button size="sm" className="flex items-center gap-2 font-extrabold">
+          <Plus className="h-4 w-4" strokeWidth={2.5} />
           Nuevo Vehículo
         </Button>
       </DialogTrigger>

@@ -3,7 +3,7 @@ export enum TypeVehicle {
   Truck = "Truck",
   Van = "Van",
   Pickup = "Pickup",
-  TractorUnit = "Tractor",
+  TractorUnit = "TractorUnit",
 }
 
 export interface CreateVehicle {
