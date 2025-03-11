@@ -18,14 +18,19 @@ import React, { useState } from "react";
 import DataTable from "./data-table";
 import { DataTableToolbar } from "./data-table-toolbar";
 import { DataTableToolbarActions } from "./data-table-toolbar-actions";
+import CreateTravelModal from "@/components/travels/create-travel-modal";
 
 export default function TravelsTable() {
-  const { data: travels = [] } = useGetTravels();
+  const { data: travels = [], refetch } = useGetTravels();
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
+
+  const handleRefresh = async () => {
+    await refetch();
+  };
 
   const table = useReactTable({
     data: travels,
@@ -104,6 +109,7 @@ export default function TravelsTable() {
       <div className="flex items-center justify-between">
         <DataTable table={table}>
           <DataTableToolbar table={table} filterFields={filterFields}>
+            <CreateTravelModal onSuccess={handleRefresh} />
             <DataTableToolbarActions table={table} />
           </DataTableToolbar>
         </DataTable>

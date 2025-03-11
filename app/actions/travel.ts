@@ -45,10 +45,20 @@ export const useGetTravelById = (id: string) => {
 
 export const createTravel = async (travel: CreateTravel): Promise<Travel> => {
   const token = getAuthToken();
+
+  const newTravel = {
+    ...travel,
+    assistantId: travel.assistantId === "" ? null : travel.assistantId,
+    semiTrailerId: travel.semiTrailerId === "" ? null : travel.semiTrailerId,
+  };
+  console.log(newTravel);
   const response = await fetch(`${API_URL}${travelUrls.createTravel}`, {
     method: "POST",
-    headers: token ? { Authorization: `Bearer ${token}` } : {},
-    body: JSON.stringify(travel),
+    headers: {
+      "Content-Type": "application/json",
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
+    body: JSON.stringify(newTravel),
   });
   if (!response.ok) throw new Error("Error al crear el viaje");
   return response.json();

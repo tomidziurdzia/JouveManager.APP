@@ -12,6 +12,7 @@ export interface Travel {
 }
 
 export interface CreateTravel {
+  id?: string;
   date: string;
   driverId: string;
   assistantId?: string | null;

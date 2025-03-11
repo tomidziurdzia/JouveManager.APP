@@ -104,8 +104,8 @@ export default function CreateSemiTrailerModal({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size="sm" className="flex items-center gap-2">
-          <Plus className="h-4 w-4" />
+        <Button size="sm" className="flex items-center gap-2 font-extrabold">
+          <Plus className="h-4 w-4" strokeWidth={2.5} />
           Nuevo Semi-trailer
         </Button>
       </DialogTrigger>
