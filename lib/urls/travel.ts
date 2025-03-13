@@ -1,8 +1,8 @@
 export const travelUrls = {
   getTravels: "/travels",
-  getTravelById: "/travels/:id",
+  getTravelById: "/travels",
   createTravel: "/travels",
-  updateTravel: "/travels/:id",
-  deleteTravel: "/travels/:id",
+  updateTravel: "/travels",
+  deleteTravel: "/travels",
   getTravelsByDate: "/travels/date",
 };
