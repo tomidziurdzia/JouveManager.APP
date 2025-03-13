@@ -1,10 +1,18 @@
 import { Travel } from "@/app/interfaces/travel.interface";
+import DeleteTravelModal from "@/components/travels/delete-travel-modal";
+import EditTravelModal from "@/components/travels/edit-travel-modal";
 import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, Search } from "lucide-react";
 import Link from "next/link";
 
-export const columns: ColumnDef<Travel>[] = [
+interface CreateColumnsProps {
+  onRefresh: () => Promise<void>;
+}
+
+export const createColumns = ({
+  onRefresh,
+}: CreateColumnsProps): ColumnDef<Travel>[] => [
   {
     accessorKey: "date",
     size: 150,
@@ -73,12 +81,17 @@ export const columns: ColumnDef<Travel>[] = [
   },
   {
     id: "actions",
-    size: 50,
+    header: "Acciones",
     cell: ({ row }) => {
+      const travel = row.original;
       return (
-        <Link href={`/dashboard/travels/${row.original.id}`}>
-          <Search className="h-4 w-4 cursor-pointer hover:text-primary" />
-        </Link>
+        <div className="flex items-center gap-2">
+          <Link href={`/dashboard/travels/${row.original.id}`}>
+            <Search className="h-4 w-4 mr-2 cursor-pointer hover:text-primary" />
+          </Link>
+          <EditTravelModal travel={travel} onSuccess={onRefresh} />
+          <DeleteTravelModal travel={travel} onSuccess={onRefresh} />
+        </div>
       );
     },
   },

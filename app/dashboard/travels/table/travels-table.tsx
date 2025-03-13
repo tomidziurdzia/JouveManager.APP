@@ -13,7 +13,7 @@ import {
   useReactTable,
   VisibilityState,
 } from "@tanstack/react-table";
-import { columns } from "./data-table-columns";
+import { createColumns } from "./data-table-columns";
 import React, { useState } from "react";
 import DataTable from "./data-table";
 import { DataTableToolbar } from "./data-table-toolbar";
@@ -34,7 +34,7 @@ export default function TravelsTable() {
 
   const table = useReactTable({
     data: travels,
-    columns,
+    columns: createColumns({ onRefresh: handleRefresh }),
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),

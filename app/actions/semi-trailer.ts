@@ -81,7 +81,6 @@ export const useCreateSemiTrailer = () => {
 export const updateSemiTrailer = async (
   semiTrailer: UpdateSemiTrailer
 ): Promise<void> => {
-  console.log(semiTrailer);
   const token = getAuthToken();
   const response = await fetch(
     `${API_URL}${semiTrailerUrls.updateSemiTrailer}/${semiTrailer.id}`,

@@ -72,20 +72,29 @@ export const useCreateTravel = () => {
   });
 };
 
-export const updateTravel = async (
-  travel: UpdateTravel
-): Promise<UpdateTravel> => {
+export const updateTravel = async (travel: UpdateTravel): Promise<void> => {
   const token = getAuthToken();
+  const editTravel = {
+    ...travel,
+    assistantId:
+      travel.assistantId === "" || travel.assistantId === "nobody"
+        ? null
+        : travel.assistantId,
+    semiTrailerId: travel.semiTrailerId === "" ? null : travel.semiTrailerId,
+  };
+
   const response = await fetch(
     `${API_URL}${travelUrls.updateTravel}/${travel.id}`,
     {
       method: "PUT",
-      headers: token ? { Authorization: `Bearer ${token}` } : {},
-      body: JSON.stringify(travel),
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+      body: JSON.stringify(editTravel),
     }
   );
   if (!response.ok) throw new Error("Error al actualizar el viaje");
-  return response.json();
 };
 
 export const useUpdateTravel = () => {
