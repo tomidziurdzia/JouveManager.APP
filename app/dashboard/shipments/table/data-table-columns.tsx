@@ -1,11 +1,19 @@
 import { Shipment } from "@/app/interfaces/shipment.interface";
+import DeleteShipmentModal from "@/components/shipments/delete-shipment-modal";
+import EditShipmentModal from "@/components/shipments/edit-shipment-modal";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, Search } from "lucide-react";
 import Link from "next/link";
 
-export const columns: ColumnDef<Shipment>[] = [
+interface CreateColumnsProps {
+  onRefresh: () => Promise<void>;
+}
+
+export const createColumns = ({
+  onRefresh,
+}: CreateColumnsProps): ColumnDef<Shipment>[] => [
   {
     accessorKey: "scheduledDate",
     size: 150,
@@ -130,10 +138,15 @@ export const columns: ColumnDef<Shipment>[] = [
     id: "actions",
     size: 50,
     cell: ({ row }) => {
+      const shipment = row.original;
       return (
-        <Link href={`/dashboard/shipments/${row.original.id}`}>
-          <Search className="h-4 w-4 cursor-pointer hover:text-primary" />
-        </Link>
+        <div className="flex items-center gap-2">
+          <Link href={`/dashboard/shipments/${row.original.id}`}>
+            <Search className="h-4 w-4 cursor-pointer hover:text-primary" />
+          </Link>
+          <EditShipmentModal shipment={shipment} onSuccess={onRefresh} />
+          <DeleteShipmentModal shipment={shipment} onSuccess={onRefresh} />
+        </div>
       );
     },
   },

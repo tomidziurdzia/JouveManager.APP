@@ -2,7 +2,7 @@ export const shipmentUrls = {
   getShipments: "/shipments",
   getShipmentById: "/shipments",
   createShipment: "/shipments",
-  updateShipment: "/shipments/:id",
-  deleteShipment: "/shipments/:id",
+  updateShipment: "/shipments",
+  deleteShipment: "/shipments",
   getShipmentsByDate: "/shipments/date",
 };

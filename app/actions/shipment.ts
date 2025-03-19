@@ -47,10 +47,14 @@ export const createShipment = async (
   shipment: CreateShipment
 ): Promise<Shipment> => {
   const token = getAuthToken();
+  console.log(shipment);
   const response = await fetch(`${API_URL}${shipmentUrls.createShipment}`, {
     method: "POST",
     body: JSON.stringify(shipment),
-    headers: token ? { Authorization: `Bearer ${token}` } : {},
+    headers: {
+      "Content-Type": "application/json",
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
   });
   if (!response.ok) throw new Error("Error al crear el envío");
   return response.json();
@@ -68,15 +72,20 @@ export const useCreateShipment = () => {
 
 export const updateShipment = async (
   shipment: UpdateShipment
-): Promise<UpdateShipment> => {
+): Promise<void> => {
   const token = getAuthToken();
-  const response = await fetch(`${API_URL}${shipmentUrls.updateShipment}`, {
-    method: "PUT",
-    body: JSON.stringify(shipment),
-    headers: token ? { Authorization: `Bearer ${token}` } : {},
-  });
+  const response = await fetch(
+    `${API_URL}${shipmentUrls.updateShipment}/${shipment.id}`,
+    {
+      method: "PUT",
+      body: JSON.stringify(shipment),
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+    }
+  );
   if (!response.ok) throw new Error("Error al actualizar el envío");
-  return response.json();
 };
 
 export const useUpdateShipment = () => {
