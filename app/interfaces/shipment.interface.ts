@@ -9,6 +9,7 @@ export interface CreateShipment {
 }
 
 export interface UpdateShipment {
+  id: string;
   customerName: string;
   from: string;
   to: string;

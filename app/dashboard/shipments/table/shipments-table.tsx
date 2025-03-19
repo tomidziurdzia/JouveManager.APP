@@ -13,23 +13,28 @@ import {
   useReactTable,
   VisibilityState,
 } from "@tanstack/react-table";
-import { columns } from "./data-table-columns";
 import React, { useState } from "react";
 import DataTable from "./data-table";
 import { DataTableToolbar } from "./data-table-toolbar";
 import { DataTableToolbarActions } from "./data-table-toolbar-actions";
+import CreateShipmentModal from "@/components/shipments/create-shipment-modal";
+import { createColumns } from "./data-table-columns";
 
 export default function ShipmentsTable() {
-  const { data: shipments = [] } = useGetShipments();
+  const { data: shipments = [], refetch } = useGetShipments();
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
 
+  const handleRefresh = async () => {
+    await refetch();
+  };
+
   const table = useReactTable({
     data: shipments,
-    columns,
+    columns: createColumns({ onRefresh: handleRefresh }),
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
@@ -88,6 +93,7 @@ export default function ShipmentsTable() {
     <>
       <DataTable table={table}>
         <DataTableToolbar table={table} filterFields={filterFields}>
+          <CreateShipmentModal onSuccess={handleRefresh} />
           <DataTableToolbarActions table={table} />
         </DataTableToolbar>
       </DataTable>
